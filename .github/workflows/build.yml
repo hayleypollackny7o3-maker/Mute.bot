@@ -24,7 +24,15 @@ jobs:
         sudo apt install -y git zip unzip openjdk-17-jdk python3-pip autoconf libtool pkg-config zlib1g-dev
         pip install buildozer cython
 
-    - name: Accept Android SDK licenses
+    - name: Download and install Android Build-Tools manually
+      run: |
+        mkdir -p /home/runner/.buildozer/android/platform/android-sdk/build-tools/37.0.0
+        cd /home/runner/.buildozer/android/platform/android-sdk/build-tools/37.0.0
+        wget -q https://dl.google.com/android/repository/build-tools_r37-linux.zip
+        unzip -q build-tools_r37-linux.zip
+        rm build-tools_r37-linux.zip
+
+    - name: Accept Android SDK licenses (just in case)
       run: |
         mkdir -p /home/runner/.android
         echo "### User Sources for Android SDK Manager" > /home/runner/.android/repositories.cfg
